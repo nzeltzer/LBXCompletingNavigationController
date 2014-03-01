@@ -7,43 +7,73 @@
 //
 
 #import "LBXAppDelegate.h"
+#import "LBXNavigationController.h"
+
+@interface LBXAppDelegate() <UINavigationControllerDelegate>
+
+@property (nonatomic, readwrite, strong) LBXNavigationController *navigationController;
+
+@end
 
 @implementation LBXAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
+    // Set up a root view controller with a blue background.
+    
+    UIViewController *rootViewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
+    rootViewController.view.backgroundColor = [UIColor blueColor];
+    
+    // Set up the navigation controller.
+    
+    self.navigationController = ({
+        
+        LBXNavigationController *controller =
+        [[LBXNavigationController alloc]
+         initWithRootViewController:rootViewController];
+        
+        [controller setDelegate:self];
+        
+        // Add a button for test purposes.
+        
+        UIBarButtonItem *testButton = [[UIBarButtonItem alloc] initWithTitle:@"Push" style:0 target:self action:@selector(pushNextLevel:)];
+        rootViewController.navigationItem.rightBarButtonItem = testButton;
+        controller;
+    });
+    
+    // Assign the navigation controller.
+    
+    self.window.rootViewController = self.navigationController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
+- (void)pushNextLevel:(id)sender;
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    // Create a new view controller with a red background
+    UIViewController *nextViewController = [[UIViewController alloc] initWithNibName:nil bundle:nil];
+    nextViewController.view.backgroundColor = [UIColor redColor];
+    [self.navigationController pushViewController:nextViewController animated:YES completion:^{
+        NSLog(@"Finished");
+    }];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+#pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated;
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated;
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSLog(@"%@ %@", [self class], NSStringFromSelector(_cmd));
 }
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-}
-
 @end
