@@ -18,6 +18,6 @@
 
 - (void)pushViewController:(UIViewController *)viewController
                   animated:(BOOL)animated
-                completion:(void(^)())completion;
+                completion:(void (^)(UINavigationController *navigationController, UIViewController *viewController))completion;
 
 @end

@@ -12,7 +12,7 @@
 		31AE0A8C18C26953008A63F8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31AE0A8B18C26953008A63F8 /* UIKit.framework */; };
 		31AE0A9218C26953008A63F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31AE0A9018C26953008A63F8 /* InfoPlist.strings */; };
 		31AE0A9418C26953008A63F8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AE0A9318C26953008A63F8 /* main.m */; };
-		31AE0A9818C26953008A63F8 /* LBXAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AE0A9718C26953008A63F8 /* LBXAppDelegate.m */; };
+		31AE0A9818C26953008A63F8 /* LBXNavigationControllerDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AE0A9718C26953008A63F8 /* LBXNavigationControllerDemoAppDelegate.m */; };
 		31AE0A9A18C26953008A63F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31AE0A9918C26953008A63F8 /* Images.xcassets */; };
 		31AE0AA118C26953008A63F8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31AE0AA018C26953008A63F8 /* XCTest.framework */; };
 		31AE0AA218C26954008A63F8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31AE0A8718C26953008A63F8 /* Foundation.framework */; };
@@ -20,6 +20,7 @@
 		31AE0AAB18C26954008A63F8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31AE0AA918C26954008A63F8 /* InfoPlist.strings */; };
 		31AE0AAD18C26954008A63F8 /* LBXNavigationControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AE0AAC18C26954008A63F8 /* LBXNavigationControllerTests.m */; };
 		31AE0AB818C2696D008A63F8 /* LBXNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31AE0AB718C2696D008A63F8 /* LBXNavigationController.m */; };
+		31AE0ABE18C28A1A008A63F8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31AE0ABD18C28A1A008A63F8 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,8 +42,8 @@
 		31AE0A9118C26953008A63F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		31AE0A9318C26953008A63F8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		31AE0A9518C26953008A63F8 /* LBXNavigationController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LBXNavigationController-Prefix.pch"; sourceTree = "<group>"; };
-		31AE0A9618C26953008A63F8 /* LBXAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBXAppDelegate.h; sourceTree = "<group>"; };
-		31AE0A9718C26953008A63F8 /* LBXAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBXAppDelegate.m; sourceTree = "<group>"; };
+		31AE0A9618C26953008A63F8 /* LBXNavigationControllerDemoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LBXNavigationControllerDemoAppDelegate.h; sourceTree = "<group>"; };
+		31AE0A9718C26953008A63F8 /* LBXNavigationControllerDemoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBXNavigationControllerDemoAppDelegate.m; sourceTree = "<group>"; };
 		31AE0A9918C26953008A63F8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		31AE0A9F18C26953008A63F8 /* LBXNavigationControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LBXNavigationControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31AE0AA018C26953008A63F8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -51,6 +52,7 @@
 		31AE0AAC18C26954008A63F8 /* LBXNavigationControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LBXNavigationControllerTests.m; sourceTree = "<group>"; };
 		31AE0AB618C2696D008A63F8 /* LBXNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBXNavigationController.h; sourceTree = "<group>"; };
 		31AE0AB718C2696D008A63F8 /* LBXNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBXNavigationController.m; sourceTree = "<group>"; };
+		31AE0ABD18C28A1A008A63F8 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +112,8 @@
 		31AE0A8D18C26953008A63F8 /* LBXNavigationController */ = {
 			isa = PBXGroup;
 			children = (
-				31AE0A9618C26953008A63F8 /* LBXAppDelegate.h */,
-				31AE0A9718C26953008A63F8 /* LBXAppDelegate.m */,
+				31AE0A9618C26953008A63F8 /* LBXNavigationControllerDemoAppDelegate.h */,
+				31AE0A9718C26953008A63F8 /* LBXNavigationControllerDemoAppDelegate.m */,
 				31AE0AB618C2696D008A63F8 /* LBXNavigationController.h */,
 				31AE0AB718C2696D008A63F8 /* LBXNavigationController.m */,
 				31AE0A9918C26953008A63F8 /* Images.xcassets */,
@@ -127,6 +129,7 @@
 				31AE0A9018C26953008A63F8 /* InfoPlist.strings */,
 				31AE0A9318C26953008A63F8 /* main.m */,
 				31AE0A9518C26953008A63F8 /* LBXNavigationController-Prefix.pch */,
+				31AE0ABD18C28A1A008A63F8 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31AE0A9218C26953008A63F8 /* InfoPlist.strings in Resources */,
+				31AE0ABE18C28A1A008A63F8 /* Localizable.strings in Resources */,
 				31AE0A9A18C26953008A63F8 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,7 +251,7 @@
 			files = (
 				31AE0AB818C2696D008A63F8 /* LBXNavigationController.m in Sources */,
 				31AE0A9418C26953008A63F8 /* main.m in Sources */,
-				31AE0A9818C26953008A63F8 /* LBXAppDelegate.m in Sources */,
+				31AE0A9818C26953008A63F8 /* LBXNavigationControllerDemoAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

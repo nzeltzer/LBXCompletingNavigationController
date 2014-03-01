@@ -1,5 +1,5 @@
 //
-//  LBXAppDelegate.h
+//  LBXNavigationControllerDemoAppDelegate.h
 //  LBXNavigationController
 //
 //  Created by Nicholas Zeltzer on 3/1/14.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LBXAppDelegate : UIResponder <UIApplicationDelegate>
+@interface LBXNavigationControllerDemoAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

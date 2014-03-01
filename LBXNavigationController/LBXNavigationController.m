@@ -9,9 +9,13 @@
 #import "LBXNavigationController.h"
 #import <objc/objc-runtime.h>
 
-@interface LBXNavigationController () <UINavigationControllerDelegate>
+@interface LBXNavigationController () <UINavigationControllerDelegate> {
+    dispatch_once_t _pushSpawn;
+    dispatch_queue_t _pushQueue;
+    dispatch_group_t _pushGroup;
+    dispatch_semaphore_t _pushSema;
+}
 
-@property (nonatomic, readwrite, copy) void (^pushCompletionHandler)();
 @property (nonatomic, readwrite, assign) id <UINavigationControllerDelegate> internalDelegate;
 
 BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
@@ -25,11 +29,6 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
 @dynamic internalDelegate, delegate;
 
 #pragma mark Initialization
-
-+ (void)initialize;
-{
-    [super initialize];
-}
 
 - (id)initWithCoder:(NSCoder *)aDecoder;
 {
@@ -65,6 +64,12 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
         [self LBXSetupNavigationController];
     }
     return self;
+}
+
+- (void)dealloc;
+{
+    [self setInternalDelegate:nil];
+    [self setExternalDelegate:nil];
 }
 
 #pragma mark Setup
@@ -151,9 +156,36 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
 
 #pragma mark Navigation
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated completion:(void (^)())completion;
+- (void)pushViewController:(UIViewController *)viewController
+                  animated:(BOOL)animated
+                completion:(void (^)(UINavigationController *navigationController, UIViewController *viewController))completion;
 {
-    self.pushCompletionHandler = completion;
+    dispatch_once(&_pushSpawn, ^{
+        _pushQueue = dispatch_queue_create("com.LBXNavigationController.push", DISPATCH_QUEUE_SERIAL);
+        _pushGroup = dispatch_group_create();
+    });
+    
+    UINavigationController *__weak weakNavigation = self;
+    UIViewController *__weak weakController = viewController;
+    
+    /** 
+     Use a private serial queue and semaphore to prevent execution of the completion handler until the transition has completed.
+     Use a dispatch group to prevent subsequent blocks from executing until the previous block has completed asynchronously.
+     
+     See tests for detailed walkthrough.
+     
+     */
+
+    dispatch_async(_pushQueue, ^{
+        dispatch_group_enter(_pushGroup);
+        self->_pushSema = dispatch_semaphore_create(0);
+        dispatch_semaphore_wait(_pushSema, DISPATCH_TIME_FOREVER);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(weakNavigation, weakController);
+            dispatch_group_leave(_pushGroup);
+        });
+    });
+    
     [super pushViewController:viewController animated:animated];
 }
 
@@ -163,10 +195,8 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated;
 {
-    void (^pushCompletion)() = nil;
-    if ((pushCompletion = [self pushCompletionHandler])) {
-        pushCompletion();
-        self.pushCompletionHandler = nil;
+    if (_pushSema) {
+        dispatch_semaphore_signal(_pushSema);
     }
     if ([self.externalDelegate respondsToSelector:_cmd]) {
         [self.externalDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
