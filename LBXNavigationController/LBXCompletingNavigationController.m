@@ -21,7 +21,8 @@
 
 
 #import "LBXCompletingNavigationController.h"
-#import <objc/objc-runtime.h>
+
+@import ObjectiveC;
 
 /** Illustration.
  
