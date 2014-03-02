@@ -5,7 +5,7 @@ UINavigationController subclass with added method providing completion block exe
 
 This class is intended as an example of extending the behavior of a UIKit base class without swizzling rocket launchers. 
 
-- (void)pushViewController:(UIViewController *)viewController
+    - (void)pushViewController:(UIViewController *)viewController
                   animated:(BOOL)animated
                 completion:(void (^)(UINavigationController *navigationController, UIViewController *viewController))completion;
                 
