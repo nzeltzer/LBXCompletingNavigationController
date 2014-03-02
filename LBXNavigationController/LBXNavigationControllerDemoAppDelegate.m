@@ -1,6 +1,6 @@
 //
 //  LBXNavigationControllerDemoAppDelegate.m
-//  LBXNavigationController
+//  LBXCompletingNavigationController
 //
 //  Created by Nicholas Zeltzer on 3/1/14.
 //  Copyright (c) 2014 Nicholas Zeltzer.
@@ -21,11 +21,11 @@
  */
 
 #import "LBXNavigationControllerDemoAppDelegate.h"
-#import "LBXNavigationController.h"
+#import "LBXCompletingNavigationController.h"
 
 @interface LBXNavigationControllerDemoAppDelegate() <UINavigationControllerDelegate>
 
-@property (nonatomic, readwrite, strong) LBXNavigationController *navigationController;
+@property (nonatomic, readwrite, strong) LBXCompletingNavigationController *navigationController;
 
 @end
 
@@ -42,10 +42,10 @@
     
     // Set up the navigation controller.
     
-    self.navigationController = [[LBXNavigationController alloc] initWithRootViewController:rootViewController];
+    self.navigationController = [[LBXCompletingNavigationController alloc] initWithRootViewController:rootViewController];
     
     // Assign self as delegate for demonstration purposes.
-    // Note: Assigning self as 'externalDelegate' would be better practice, see 'LBXNavigationController' header.
+    // Note: Assigning self as 'externalDelegate' would be better practice, see 'LBXCompletingNavigationController' header.
     
     self.navigationController.delegate = self;
     

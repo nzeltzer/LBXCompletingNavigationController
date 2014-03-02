@@ -1,6 +1,6 @@
 //
 //  LBXNavigationControllerDemoAppDelegate.h
-//  LBXNavigationController
+//  LBXNavigationControllerDemoAppDelegate
 //
 //  Created by Nicholas Zeltzer on 3/1/14.
 //  Copyright (c) 2014 Nicholas Zeltzer.

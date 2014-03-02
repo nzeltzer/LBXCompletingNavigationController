@@ -1,6 +1,6 @@
 //
-//  LBXNavigationControllerTests.m
-//  LBXNavigationControllerTests
+//  LBXCompletingNavigationControllerTests.m
+//  LBXCompletingNavigationControllerTests
 //
 //  Created by Nicholas Zeltzer on 3/1/14.
 //  Copyright (c) 2014 Nicholas Zeltzer.
@@ -20,28 +20,28 @@
  limitations under the License.
  */
 #import <XCTest/XCTest.h>
-#import "LBXNavigationController.h"
+#import "LBXCompletingNavigationController.h"
 
-@protocol LBXNavigationControllerTestProtocol <NSObject, UINavigationControllerDelegate>
+@protocol LBXCompletingNavigationControllerTestProtocol <NSObject, UINavigationControllerDelegate>
 
 @property (nonatomic, readwrite, weak) id <UINavigationControllerDelegate> internalDelegate;
 @property (nonatomic, readwrite, weak) id <UINavigationControllerDelegate> externalDelegate;
 
 @end
 
-@interface LBXNavigationControllerTests : XCTestCase <UINavigationControllerDelegate> {
+@interface LBXCompletingNavigationControllerTests : XCTestCase <UINavigationControllerDelegate> {
     dispatch_group_t _pushGroup;
     dispatch_queue_t _pushQueue;
     dispatch_semaphore_t _pushSema;
     dispatch_once_t _pushSpawn;
 }
 
-@property (nonatomic, readwrite, strong) LBXNavigationController <LBXNavigationControllerTestProtocol> *navigationController;
+@property (nonatomic, readwrite, strong) LBXCompletingNavigationController <LBXCompletingNavigationControllerTestProtocol> *navigationController;
 @property (nonatomic, readwrite, strong) UIViewController *rootViewController;
 
 @end
 
-@implementation LBXNavigationControllerTests
+@implementation LBXCompletingNavigationControllerTests
 
 - (void)setUp
 {
@@ -53,7 +53,7 @@
     });
     
     self.navigationController = ({
-        LBXNavigationController <LBXNavigationControllerTestProtocol> *controller = (LBXNavigationController<LBXNavigationControllerTestProtocol>*)[[LBXNavigationController alloc] initWithRootViewController:self.rootViewController];
+        LBXCompletingNavigationController <LBXCompletingNavigationControllerTestProtocol> *controller = (LBXCompletingNavigationController<LBXCompletingNavigationControllerTestProtocol>*)[[LBXCompletingNavigationController alloc] initWithRootViewController:self.rootViewController];
         controller;
     });
     
@@ -169,7 +169,7 @@
 {
     
     dispatch_once(&_pushSpawn, ^{
-        _pushQueue = dispatch_queue_create("com.LBXNavigationController.push", DISPATCH_QUEUE_SERIAL);
+        _pushQueue = dispatch_queue_create("com.LBXCompletingNavigationController.push", DISPATCH_QUEUE_SERIAL);
         _pushGroup = dispatch_group_create();
     });
     

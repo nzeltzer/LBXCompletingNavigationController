@@ -1,6 +1,6 @@
 //
-//  LBXNavigationController.h
-//  LBXNavigationController
+//  LBXCompletingNavigationController.h
+//  LBXCompletingNavigationController
 //
 //  Created by Nicholas Zeltzer on 3/1/14.
 //  Copyright (c) 2014 Nicholas Zeltzer.
@@ -26,7 +26,7 @@
  UINavigationController subclass that adds completion block support to view controller transitions.
  */
 
-@interface LBXNavigationController : UINavigationController
+@interface LBXCompletingNavigationController : UINavigationController
 
 /** 
  Object conforming to the UINavigationControllerDelegate protocol. This accessor should be used en lieu of the UINavigationController delegate property.

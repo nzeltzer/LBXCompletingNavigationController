@@ -1,6 +1,6 @@
 //
-//  LBXNavigationController.m
-//  LBXNavigationController
+//  LBXCompletingNavigationController.m
+//  LBXCompletingNavigationController
 //
 //  Copyright (c) 2014 Nicholas Zeltzer.
 //
@@ -20,7 +20,7 @@
  */
 
 
-#import "LBXNavigationController.h"
+#import "LBXCompletingNavigationController.h"
 #import <objc/objc-runtime.h>
 
 /** Illustration.
@@ -34,7 +34,7 @@
  
  */
 
-@interface LBXNavigationController () <UINavigationControllerDelegate> {
+@interface LBXCompletingNavigationController () <UINavigationControllerDelegate> {
     dispatch_once_t _pushSpawn;
     dispatch_queue_t _pushQueue;
     dispatch_group_t _pushGroup;
@@ -49,7 +49,7 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
 
 #pragma mark - Implementation
 
-@implementation LBXNavigationController
+@implementation LBXCompletingNavigationController
 
 @dynamic internalDelegate, delegate;
 
@@ -186,7 +186,7 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
                 completion:(void (^)(UINavigationController *navigationController, UIViewController *viewController))completion;
 {
     dispatch_once(&_pushSpawn, ^{
-        _pushQueue = dispatch_queue_create("com.LBXNavigationController.push", DISPATCH_QUEUE_SERIAL);
+        _pushQueue = dispatch_queue_create("com.LBXCompletingNavigationController.push", DISPATCH_QUEUE_SERIAL);
         _pushGroup = dispatch_group_create();
     });
     
