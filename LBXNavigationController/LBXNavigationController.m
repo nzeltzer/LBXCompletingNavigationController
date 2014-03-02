@@ -2,12 +2,37 @@
 //  LBXNavigationController.m
 //  LBXNavigationController
 //
-//  Created by Nicholas Zeltzer on 3/1/14.
-//  Copyright (c) 2014 LawBox. All rights reserved.
+//  Copyright (c) 2014 Nicholas Zeltzer.
 //
+
+/**
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "as is" basis,
+ without warranties or conditions of any kind, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
 
 #import "LBXNavigationController.h"
 #import <objc/objc-runtime.h>
+
+/** Illustration.
+ 
+ This class includes four items of interest:
+ 
+ 1. The NSObjectProtocol method, 'respondsToSelector' is being used to pass information about more than one object's implementation details.
+ 2. The NSObject method, 'forwardInvocation:', is being used to pass message handling to another object.
+ 3. The delegate accessor has been overwritten for purposes of "misdirection".
+ 4. A private dispatch queue, group, and semaphore are being used to schedule blocks on the execution of methods over which we have no control.
+ 
+ */
 
 @interface LBXNavigationController () <UINavigationControllerDelegate> {
     dispatch_once_t _pushSpawn;
@@ -16,7 +41,7 @@
     dispatch_semaphore_t _pushSema;
 }
 
-@property (nonatomic, readwrite, assign) id <UINavigationControllerDelegate> internalDelegate;
+@property (nonatomic, readwrite, weak) id <UINavigationControllerDelegate> internalDelegate;
 
 BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
 
@@ -113,7 +138,7 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector);
 
 /** The UINavigationControllerDelegate protocol includes optional methods. The default implementation of 
  respondsToSelector will only return YES for methods this class has implemented. Manually implementing 
- each protocol method is sloppy and likely to break as new protocol methods are added. Instead, 
+ each protocol method is sloppy, and it is likely to break as new protocol methods are added. Instead,
  dynamically filter out selectors that belong to the UINavigationControllerDelegate protocol and check
  to see if either this object, or its external delegate responds.*/
 
@@ -217,12 +242,12 @@ BOOL lbx_protocol_includesSelector(Protocol *aProtocol, SEL aSelector)
         BOOL isInstanceMethod = inst;
         struct objc_method_description *protocolMethodList;
         BOOL includesSelector = NO;
-        protocolMethodList = protocol_copyMethodDescriptionList(aProtocol, isRequiredMethod, isInstanceMethod, &protocolMethodCount);
+        protocolMethodList = protocol_copyMethodDescriptionList(pro, isRequiredMethod, isInstanceMethod, &protocolMethodCount);
         for (NSUInteger m = 0; m < protocolMethodCount; m++)
         {
             struct objc_method_description aMethodDescription = protocolMethodList[m];
             SEL aMethodSelector = aMethodDescription.name;
-            if (aMethodSelector == aSelector)
+            if (aMethodSelector == sel)
             {
                 includesSelector = YES;
                 break;
